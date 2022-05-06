@@ -9,24 +9,19 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 
-public class FirstTest {
-/*    WebDriver driver = new ChromeDriver();*/
+public class FirstTest extends BaseUtils {
+    /*    WebDriver driver = new ChromeDriver();*/
     WebDriver firefox = new FirefoxDriver();
-
 
     @BeforeMethod
     public void Base() {
-
-       /* System.out.println(driver.getTitle());*/
-
+        /* System.out.println(driver.getTitle());*/
         firefox.get("https://www.google.com/");
         System.out.println(firefox.getTitle()); // прочитать заголовок текущей страницы из браузера и вывести
         System.out.println(firefox.getCurrentUrl()); // текущий урл
 
-
-
-      firefox.manage().window().fullscreen();
-      firefox.manage().deleteAllCookies();
+        firefox.manage().window().maximize();
+        firefox.manage().deleteAllCookies();
     }
 
     @Test
@@ -38,7 +33,7 @@ public class FirstTest {
     }
 
     @AfterMethod
-    void Close(){
+    void Close() {
         firefox.close();
     }
 }
