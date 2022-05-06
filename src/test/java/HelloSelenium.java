@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class HelloSelenium extends  BaseUtils {
+public class HelloSelenium extends BaseUtils {
 
     @Test
     public void testFirstSelenium () {
