@@ -12,6 +12,7 @@ public class ScrollToElement extends BaseUtils {
         WebElement elementFirst = driver.findElement(By.xpath("//a[@title='Rob Sheffield']"));
         WebElement elementSecond = driver.findElement(By.xpath("//a[@title='Bhagavan Antle']"));
         JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("alert('HELLO!');"); // вызов джава скрипт алерт сообщение
         /*jse.executeScript("window.scrollBy(0, 50000)", "");*/
         jse.executeScript("arguments[0].scrollIntoView();", elementSecond);
         /*driver.get("https://crossbrowsertesting.github.io/selenium_example_page.html");
