@@ -6,11 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 
 public class Guru99Test extends BaseUtils {
     public static void main(String[] args) {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        //Launch the Application Under Test (AUT)
-        driver.get("http://demo.guru99.com/test/simple_context_menu.html");
-        driver.manage().window().maximize();
+        //initializeChromeDriver("http://demo.guru99.com/test/simple_context_menu.html");
+        //driver.manage().window().maximize();
 
 // Right click the button to launch right click menu options
         Actions action = new Actions(driver);
