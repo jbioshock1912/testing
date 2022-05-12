@@ -5,27 +5,23 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 public class ScrollTest extends BaseUtils{
-    WebDriver driverChrome = BaseUtils.initializeChromeDriver();
+    WebDriver driverChrome = initializeChromeDriver();
     JavascriptExecutor jse = (JavascriptExecutor)driver;
 
     @Test
     public void scrollToElement(){
-        driverChrome.get("https://en.wikipedia.org/wiki/Britney_Spears");
-        WebElement elementSecond = driverChrome.findElement(By.xpath("//a[@title='Bhagavan Antle']"));
-        jse.executeScript("arguments[0].scrollIntoView();", elementSecond);
-    }
-
-    @Test
-    public void scrollDown(){
-        driverChrome.get("https://en.wikipedia.org/wiki/Britney_Spears");
-        jse.executeScript("window.scrollBy(0, 50000)", "");
+        driverChrome.get(ConstantsUtils.JACKSON_WIKI_URL);
+        WebElement textElement = driverChrome.findElement(By.xpath(ConstantsUtils.THEMES_ANS_GENRES_TEXT));
+        WebElement linkElement = driverChrome.findElement(By.xpath(ConstantsUtils.TITO_LINK));
+        jse.executeScript("arguments[0].scrollIntoView();", textElement);
+        jse.executeScript("arguments[0].scrollIntoView();", linkElement);
     }
 
     @Test
     public void scrollDownAndUp(){
-        driverChrome.get("https://en.wikipedia.org/wiki/Britney_Spears");
-        jse.executeScript("window.scrollBy(0, 50000)", "");
+        driverChrome.get(ConstantsUtils.JACKSON_WIKI_URL);
         jse.executeScript("window.scrollBy(0, -50000)", "");
+        jse.executeScript("window.scrollBy(0, 50000)", "");
     }
 
     @Test
