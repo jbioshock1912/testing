@@ -6,7 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 import java.util.List;
 
-public class SearchingListElement {
+public class SearchingListElementWildberries {
     static WebDriver driver;
 
     public static void main(String[] args) {
@@ -23,7 +23,6 @@ public class SearchingListElement {
         System.out.println(checkBoxes.size());
         for (var value:checkBoxes
              ) {value.click();
-
         }
     }
 }
