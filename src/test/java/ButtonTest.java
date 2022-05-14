@@ -8,11 +8,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-
-
 public class ButtonTest extends BaseUtils {
     WebDriver driverChrome = BaseUtils.initializeChromeDriver();
-
 
     @Test
     public void testClickButton(){
@@ -33,5 +30,4 @@ public class ButtonTest extends BaseUtils {
         driverChrome.get("https://vk.com/");
         driverChrome.findElement(By.cssSelector("button.FlatButton:nth-child(1) > span:nth-child(1)")).submit();
     }
-
 }

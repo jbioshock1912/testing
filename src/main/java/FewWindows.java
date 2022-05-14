@@ -1,12 +1,7 @@
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.time.Duration;
-
-import static java.lang.Thread.sleep;
 
 public class FewWindows extends BaseUtils {
 

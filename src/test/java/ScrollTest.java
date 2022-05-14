@@ -11,17 +11,22 @@ public class ScrollTest extends BaseUtils{
     @Test
     public void scrollToElement(){
         driverChrome.get(ConstantsUtils.JACKSON_WIKI_URL);
-        WebElement textElement = driverChrome.findElement(By.xpath(ConstantsUtils.THEMES_ANS_GENRES_TEXT));
-        WebElement linkElement = driverChrome.findElement(By.xpath(ConstantsUtils.TITO_LINK));
+        WebElement textElement = driverChrome.findElement(By.xpath(ConstantsUtils.THEMES_ANS_GENRES_XPATH));
+        WebElement linkElement = driverChrome.findElement(By.xpath(ConstantsUtils.TITO_XPATH));
         jse.executeScript("arguments[0].scrollIntoView();", textElement);
         jse.executeScript("arguments[0].scrollIntoView();", linkElement);
     }
 
     @Test
-    public void scrollDownAndUp(){
+    public void scrollDown(){
+        driverChrome.get(ConstantsUtils.JACKSON_WIKI_URL);
+        jse.executeScript("window.scrollBy(0, 50000)", "");
+    }
+
+    @Test
+    public void scrollUpTest(){
         driverChrome.get(ConstantsUtils.JACKSON_WIKI_URL);
         jse.executeScript("window.scrollBy(0, -50000)", "");
-        jse.executeScript("window.scrollBy(0, 50000)", "");
     }
 
     @Test

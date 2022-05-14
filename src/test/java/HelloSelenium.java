@@ -14,21 +14,17 @@ public class HelloSelenium extends BaseUtils {
         WebDriver driver = new ChromeDriver();
 
         driver.get("https://google.com");
-
         driver.getTitle(); // => "Google"
-
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500)); //
 
         WebElement searchBox = driver.findElement(By.name("q"));
         WebElement searchButton = driver.findElement(By.name("btnK"));
-
 
         searchBox.sendKeys("Selenium");
         searchButton.click();
 
         searchBox = driver.findElement(By.name("q"));
         Assert.assertEquals(searchBox.getAttribute("value"), "Selenium"); // => "Selenium"
-
         driver.quit();
     }
 }
