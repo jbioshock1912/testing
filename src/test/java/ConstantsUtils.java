@@ -28,8 +28,4 @@ public class ConstantsUtils {
     public static final String EBAY_LINK_MENU_MAIN_XPATH = "//span[contains(text(), \"Главная\")]";
 
     public static final String GOOGLE_CREATE_ACC_XPATH = "//span[contains(text(), \"Создайте аккаунт Google\")]";
-
-
-
-
 }

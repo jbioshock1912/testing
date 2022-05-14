@@ -7,10 +7,10 @@ import java.time.Duration;
 import java.util.List;
 
 public class SearchingListElementWildberries {
+
     static WebDriver driver;
 
     public static void main(String[] args) {
-
         System.setProperty("webdriver.gecko.driver", "C:\\Users\\jbios\\IdeaProjects\\testing\\drivers\\geckodriver.exe");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));

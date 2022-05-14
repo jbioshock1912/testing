@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TextFieldsTest {
+
     WebDriver driverFireFox = BaseUtils.initializeFireFox();
 
     @Test
@@ -49,6 +50,5 @@ public class TextFieldsTest {
         Assert.assertEquals(result, "89545253122");
 
         driverFireFox.findElement(By.xpath("//*[contains(@class, \"vkc__Button__title\")]")).click();
-
     }
 }

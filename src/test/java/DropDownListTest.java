@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 public class DropDownListTest extends BaseUtils {
+
     WebDriver driverFireFox = BaseUtils.initializeFireFox();
 
     public static void setBirthDay(String day, String month, String year){

@@ -19,10 +19,10 @@ public class InteractionAlert extends BaseUtils {
         driver.switchTo().alert().accept(); // принять алерт
         driver.switchTo().alert().accept();
         driver.get("http://google.com");
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("confirm('Are you sure?');");
         Thread.sleep(3000);
         driver.switchTo().alert().dismiss();
-//TODO взять введенный текст из алерт
+        //TODO взять введенный текст из алерт
     }
 }

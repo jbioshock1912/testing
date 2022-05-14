@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 public class ScrollTest extends BaseUtils{
+
     WebDriver driverChrome = initializeChromeDriver();
     JavascriptExecutor jse = (JavascriptExecutor)driver;
 

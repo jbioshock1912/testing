@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class FirstTest extends BaseUtils {
+
     WebDriver firefox = new FirefoxDriver();
 
     @BeforeMethod

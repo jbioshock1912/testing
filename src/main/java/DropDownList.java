@@ -3,7 +3,7 @@ import org.openqa.selenium.WebElement;
 
 public class DropDownList extends BaseUtils {
 
-    public static void setBirthDay(String day, String month, String year){
+    public static void setBirthDay(String day, String month, String year) {
         driver.get("https://account.mail.ru/signup?from=main&rf=auth.mail.ru&app_id_mytracker=58519");
 
         String xPathForInputText = "//span[contains(text(), '%s')]";

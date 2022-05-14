@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MethodTable {
+
     private WebElement tableElement;
     private WebDriver driver;
-
 
     public MethodTable(WebElement elementTable, WebDriver driver) {
         this.tableElement = elementTable;
@@ -69,5 +69,4 @@ public class MethodTable {
         List<Map<String, WebElement>> rowsWithColumnsByHeadings = getRowsWithColumnsByHeadings();
         return rowsWithColumnsByHeadings.get(rowNumber - 1).get(columnName).getText();
     }
-
 }

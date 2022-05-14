@@ -16,8 +16,7 @@ public class FewWindows extends BaseUtils {
     }
 
     public static void main(String[] args) throws AWTException, InterruptedException {
-
-    /*    initializeChromeDriver("https://www.oracle.com/java/technologies/downloads/#java8");
+        /*    initializeChromeDriver("https://www.oracle.com/java/technologies/downloads/#java8");
         String mainWindowName = driver.getWindowHandle(); // сохраняем имя окна
         Actions action= new Actions(driver);
         WebElement agreeBtn = driver.findElement(By.xpath("//*[@id=\"java8\"]/section[1]/div/p[3]/a[1]"));

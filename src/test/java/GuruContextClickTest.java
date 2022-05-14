@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 
 public class GuruContextClickTest extends BaseUtils {
+
     WebDriver driverFireFox = BaseUtils.initializeFireFox();
 
     @Test

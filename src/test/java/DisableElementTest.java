@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class DisableElementTest extends BaseUtils {
+
     WebDriver driverFireFox = BaseUtils.initializeFireFox();
 
     @Test
