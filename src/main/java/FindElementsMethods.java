@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 
 public class FindElementsMethods {
+
     public static void main(String[] args) {
         System.setProperty("webdriver.gecko.driver", "C:\\Users\\jbios\\IdeaProjects\\testing\\drivers\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
@@ -21,7 +22,5 @@ public class FindElementsMethods {
         WebElement cssSearch = driver.findElement(By.cssSelector("div#simpleSearch")); // по селектору CSS
         WebElement xPathElementLogo = driver.findElement(By.xpath("//a[@class='mw-wiki-logo']")); // по XPath
         driver.quit();
-
-
     }
 }
