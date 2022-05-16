@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class CheckBoxTest {
+
     WebDriver driverFireFox = BaseUtils.initializeFireFox();
 
     @Test
