@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -23,7 +24,8 @@ public class BaseUtils {
             } finally {
                 con.disconnect();
             }
-        } catch (IOException ignore) {}
+        } catch (IOException ignore) {
+        }
 
         if (!remoteWebDriver) {
             WebDriverManager.chromedriver().setup();
@@ -31,17 +33,24 @@ public class BaseUtils {
         }
     }
 
-    protected static WebDriver initializeChromeDriver(){
+    protected static WebDriver initializeChromeDriver() {
+
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }
 
-    protected static WebDriver initializeFireFox(){
+    protected static WebDriver initializeFireFox() {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }
+
+    /*public static WebDriver initializePhantomDriver() {
+        System.setProperty("phantomjs.binary.path", "B:\\test\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\binphantomjs.exe");
+        WebDriver driver = new PhantomJSDriver();
+        return driver;*/
+
 }
