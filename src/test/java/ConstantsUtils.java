@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 public class ConstantsUtils {
     // url
     public static final String JACKSON_WIKI_URL = "https://en.wikipedia.org/wiki/Michael_Jackson";
+    public static final String MAIN_PAGE_WIKI_URL = "https://en.wikipedia.org/wiki/Main_Page";
     public static final String MAIL_REGISTRATION_URL = "https://account.mail.ru/signup?from=main&rf=auth.mail.ru&app_id_mytracker=58519";
     public static final String DEMOGA_TEST_URL = "https://demoqa.com/dynamic-properties";
     public static final String DEMOGA_RADIO_BTN_URL = "https://demoqa.com/radio-button";
@@ -28,4 +29,5 @@ public class ConstantsUtils {
     public static final String EBAY_LINK_MENU_MAIN_XPATH = "//span[contains(text(), \"Главная\")]";
 
     public static final String GOOGLE_CREATE_ACC_XPATH = "//span[contains(text(), \"Создайте аккаунт Google\")]";
+    public static final String SEARCH_WIKI__XPATH = "//div[@id='simpleSearch']/input[@class='vector-search-box-input']";
 }
