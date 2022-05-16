@@ -3,9 +3,7 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -50,11 +48,9 @@ public class BaseUtils {
         return driver;
     }
 
-    public static WebDriver initializePhantomDriver() {
+    /*public static WebDriver initializePhantomDriver() {
         System.setProperty("phantomjs.binary.path", "B:\\test\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\binphantomjs.exe");
         WebDriver driver = new PhantomJSDriver();
-        return driver;
+        return driver;*/
 
-
-    }
 }
