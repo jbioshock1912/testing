@@ -10,10 +10,6 @@ public class ConstantsUtils {
     public static final String DEMOGA_RADIO_BTN_URL = "https://demoqa.com/radio-button";
     public static final String DEMOGA_UPLOAD_DOWNLOAD_URL = "https://demoqa.com/upload-download";
 
-    public static final String MAIL_REGISTRATION_URL = "https://account.mail.ru/signup?from=main&rf=auth.mail.ru&app_id_mytracker=58519";
-    public static final String DEMOGA_TEST_URL = "https://demoqa.com/dynamic-properties";
-    public static final String DEMOGA_RADIO_BTN_URL = "https://demoqa.com/radio-button";
-
     public static final String EBAY_URL = "http://ebay.com";
     public static final String GOOGLE_SIGN_UP_URL = "https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Fmyaccount.google.com%3Futm_source%3Daccount-marketing-page%26utm_medium%3Dcreate-account-button&flowName=GlifWebSignIn&flowEntry=SignUp";
     public static final String GOOGLE_XPATH = "https://google.com/ncr";
