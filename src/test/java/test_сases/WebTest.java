@@ -118,10 +118,70 @@ TC_11_04 Подтвердите, что на странице по ссылке 
         Assert.assertEquals(actualScheler, expectedScheler);
     }
 
-   /* TC_11_07 Придумайте и автоматизируйте свой собственный тест кейс на сайте http://www.99-bottles-of-beer.net/
+    /* TC_11_07 Придумайте и автоматизируйте свой собственный тест кейс на сайте http://www.99-bottles-of-beer.net/
+ Убедиться, что при повторном голосовании возникает ошибка "Error: You're vote has already been counted."
+ Шаги:
+ 1. Открыть вебсайт на странице
+ 2. Зайти в меню Browse languages
+ 3. Выбрать в таблице в первом столбце Abal и кликнуть
+ 4. При голосовании выбрать из выпадающего меню оценку Good
+ 5. Проголосовать
+ 6. Подтвердить, что при повторном голосовании видим ошибку с текстом "Error: You're vote has already been counted."
+ 7. Закрыть браузер
+ */
+    @Test
+    public void testMessageRepeatVoting07() {
+        String expectedResult = "Error: Error. You're vote has already been counted.";
+
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Browse Languages')]")).click();
+        driverFireFox.findElement(By.xpath("//td/a[contains(text(), 'Abal')]")).click();
+        driverFireFox.findElement(By.xpath("//select[@name = 'rate']")).click();
+        driverFireFox.findElement(By.xpath("//option[@value = '3']")).click();
+        driverFireFox.findElement(By.xpath("//input[@value = 'Vote']")).click();
+
+        String actualResult = driverFireFox.findElement(By.cssSelector("#main > p")).getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    /*TC_11_11 Подтвердите, что если на странице по ссылке http://www.99-bottles-of-beer.net/submitnewlanguage.html ,
+пользователь нажмет кнопку Submit Language,  не заполнив информацию в обязательных полях, будет показана ошибка
+Error: Precondition failed - Incomplete Input.
+Шаги:
+1. Открыть вебсайт на странице
+2. Нажать на кнопку Submit Language
+3. Подтвердить, что на странице показана ошибка
+4. Подтвердить, что текст ошибки соответствует ожидаемому
+5. Закрыть браузер
+*/
+
+    @Test
+    public void testMessageIncompleteInput11(){
+        String expectedResult = "Error: Precondition failed - Incomplete Input.";
+
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Submit new Language')]")).click();
+        driverFireFox.findElement(By.xpath("//input[@name='submitlanguage']")).click();
+
+        String actualResult = driverFireFox.findElement(By.cssSelector("#main > p")).getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    /*TC_11_12 Precondition: Если на странице по ссылке http://www.99-bottles-of-beer.net/submitnewlanguage.html ,
+     пользователь нажмет кнопку Submit Language,  не заполнив информацию в обязательных полях, будет показана ошибка с текстом
+Error: Precondition failed - Incomplete Input.
+Подтвертите, что в тексте ошибки слова Error, Precondition, Incomplete и Input написаны с большой буквы, а слово failed  написано  с маленькой буквы.
+Так же подтвердите, что в тексте ошибки содержатся знаки :, -  и .
+
+Шаги:
+1. Открыть вебсайт на странице
+2. Нажать на кнопку Submit Language
+3. Считать текст ошибки
+4. Подтвердить requirenments
+5. Закрыть браузер*/
 
 
-   */
+
 
 
 
