@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.BaseUtils;
 
 public class ButtonTest extends BaseUtils {
     WebDriver driverChrome = BaseUtils.initializeChromeDriver();
@@ -11,7 +12,8 @@ public class ButtonTest extends BaseUtils {
     @Test
     public void testClickButton(){
         driverChrome.get("https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0");
-        driverChrome.findElement(By.xpath("//input[@id=\"searchButton\"]")).click(); // нашли кнопку и нажимаем на нее
+        driverChrome.findElement(By.xpath("//input[@id=\"searchButton\"]")).click();
+        Assert.assertEquals(driverChrome.findElement(By.xpath("//h1[contains(text(), 'Поиск')]")).getText(), "Поиск");
     }
 
     @Test

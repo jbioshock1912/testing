@@ -73,7 +73,12 @@ public class RegistrationNewUserPage {
         return this;
     }
 
-    // при успешной регистрации высплывает окно, но перехода на страницу нет
+    public RegistrationNewUserPage acceptAlert(){//если регистрация прошла спешно, то будет всплывающий алерт
+        driver.switchTo().alert().accept();
+        return this;
+    }
+
+    // при успешной регистрации высплывает алерт, но перехода на страницу нет
     public RegistrationNewUserPage registrationWithValidData(String firstName, String lastName, String userName, String password){
         this.typeFirstName(firstName);
         this.typeLastName(lastName);
@@ -81,6 +86,7 @@ public class RegistrationNewUserPage {
         this.typePassword(password);
         this.reCaptchaSelect();
         this.registerButtonClick();
+        this.acceptAlert();
         return this; // или сделать ретерн new RegistrationNewUserPage?
     }
 }

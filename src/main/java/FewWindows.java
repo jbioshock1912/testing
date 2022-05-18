@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import utils.BaseUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

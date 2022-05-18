@@ -4,6 +4,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.BaseUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -13,7 +14,7 @@ public class FirstTest extends BaseUtils {
     WebDriver firefox = new FirefoxDriver();
 
     @BeforeMethod
-    public void Base() {
+    public void base() {
         firefox.get("https://www.google.com/");
         System.out.println(firefox.getTitle()); // прочитать заголовок текущей страницы из браузера и вывести
         System.out.println(firefox.getCurrentUrl()); // текущий урл
@@ -30,7 +31,7 @@ public class FirstTest extends BaseUtils {
     }
 
     @AfterMethod
-    void Close() {
+    public void close() {
         firefox.close();
     }
 }

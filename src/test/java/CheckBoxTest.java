@@ -3,10 +3,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.BaseUtils;
 
 import java.util.List;
 
-public class CheckBoxTest {
+public class CheckBoxTest extends BaseUtils {
 
     WebDriver driverFireFox = BaseUtils.initializeFireFox();
 

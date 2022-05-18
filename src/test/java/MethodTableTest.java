@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.BaseUtils;
 import table.MethodTable;
 
 import static org.testng.Assert.*;

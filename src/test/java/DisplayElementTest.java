@@ -1,7 +1,9 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.BaseUtils;
 
 public class DisplayElementTest extends BaseUtils {
 
@@ -15,10 +17,7 @@ public class DisplayElementTest extends BaseUtils {
         System.out.println(link1.isDisplayed());
         System.out.println(link2.isDisplayed());
 
-        if (link1.isDisplayed()) {
-            link1.click();
-        } else {
-            link2.click();
-        }
+        Assert.assertFalse(link1.isDisplayed());
+        Assert.assertTrue(link2.isDisplayed());
     }
 }

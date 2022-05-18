@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
+
     private WebDriver driver;
 
     public LoginPage(WebDriver driver) {
@@ -17,37 +18,37 @@ public class LoginPage {
     private By bookStoreMenu = By.xpath("//span[contains(text(), 'Book Store')]");
     private By profileMenu = By.xpath("//span[contains(text(), 'Profile')]");
 
-    public MainBookStorePage bookStoreMenuClick(){
+    public MainBookStorePage bookStoreMenuClick() {
         driver.findElement(bookStoreMenu).click();
         return new MainBookStorePage(driver);
     }
 
-    public ProfilePage profileMenuClick(){
+    public ProfilePage profileMenuClick() {
         driver.findElement(profileMenu).click();
         return new ProfilePage(driver);
     }
 
-    public RegistrationNewUserPage newUserButtonClick(){
+    public RegistrationNewUserPage newUserButtonClick() {
         driver.findElement(newUserButton).click();
         return new RegistrationNewUserPage(driver);
     }
 
-    public LoginPage typeUserName(String userName){
+    public LoginPage typeUserName(String userName) {
         driver.findElement(inputUserName).sendKeys(userName); // возвращаем текущую страницу, заполняем юзера
         return this;
     }
 
-    public LoginPage typePassword(String password){
+    public LoginPage typePassword(String password) {
         driver.findElement(inputPassword).sendKeys(password);
         return this;
     }
 
-    public ProfilePage logInButtonClick(){
+    public ProfilePage logInButtonClick() {
         driver.findElement(logInButton).click();
         return new ProfilePage(driver);
     }
 
-    public ProfilePage logInDataType(String userName, String password){
+    public ProfilePage logInDataType(String userName, String password) {
         this.typeUserName(userName);
         this.typePassword(password);
         this.logInButtonClick();
