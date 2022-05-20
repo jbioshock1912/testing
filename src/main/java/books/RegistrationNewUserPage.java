@@ -3,6 +3,8 @@ package books;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
+
 public class RegistrationNewUserPage {
     WebDriver driver;
 
@@ -10,33 +12,14 @@ public class RegistrationNewUserPage {
         this.driver = driver;
     }
 
-    private By logInMenu = By.xpath("//span[contains(text(), 'Login')]");
-    private By bookStoreMenu = By.xpath("//span[contains(text(), 'Book Store')]");
-    private By profileMenu = By.xpath("//span[contains(text(), 'Profile')]");
-
     private By inputFirstName = By.xpath("//input[@id='firstname']");
     private By inputLastName = By.xpath("//input[@id='lastname']");
     private By inputUserName = By.xpath("//input[@id='userName']");
     private By inputPassword = By.xpath("//input[@id='password']");
 
-    private By reCaptcha = By.xpath("//span[@id='recaptcha-anchor']");
+    private By reCaptcha = By.xpath("//div[@class='recaptcha-checkbox-checkmark']");
     private By registerButton = By.xpath("//button[@id='register']");
     private By backToLogInButton = By.xpath("//button[@id='gotologin']");
-
-    public LoginPage logInMenuClick() {
-        driver.findElement(logInMenu).click();
-        return new LoginPage(driver);
-    }
-
-    public MainBookStorePage bookStoreMenuClick() {
-        driver.findElement(bookStoreMenu).click();
-        return new MainBookStorePage(driver);
-    }
-
-    public ProfilePage profileMenuClick() {
-        driver.findElement(profileMenu).click();
-        return new ProfilePage(driver);
-    }
 
     public LoginPage backToLogInClick() {
         driver.findElement(backToLogInButton).click();
@@ -84,6 +67,7 @@ public class RegistrationNewUserPage {
         this.typeLastName(lastName);
         this.typeUserName(userName);
         this.typePassword(password);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         this.reCaptchaSelect();
         this.registerButtonClick();
         this.acceptAlert();

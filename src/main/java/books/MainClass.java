@@ -8,13 +8,12 @@ public class MainClass extends BaseUtils {
 
     public static void main(String[] args) {
         driverFirefox = BaseUtils.initializeFireFox();
-        driverFirefox.get("https://demoqa.com/books");
+        driverFirefox.get("https://demoqa.com/profile");
 
-       RegistrationNewUserPage registrationNewUser = new RegistrationNewUserPage(driverFirefox);
-       MainBookStorePage mainBookStorePage = new MainBookStorePage(driverFirefox);
-       mainBookStorePage.profileMenuClick();
-
-       //registrationNewUser.registrationWithValidData("Jul", "Luj", "Julu", "789Holhol*");
+        LoginPage loginPage = new LoginPage(driverFirefox);
+        MainBookStorePage mainBookStorePage = new MainBookStorePage(driverFirefox);
+        ProfilePage profilePage = new ProfilePage(driverFirefox);
+        RegistrationNewUserPage registrationNewUserPage = new RegistrationNewUserPage(driverFirefox);
 
     }
 }

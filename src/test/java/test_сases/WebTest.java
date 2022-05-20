@@ -2,14 +2,13 @@ package test_сases;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.BaseUtils;
 
-import javax.swing.*;
 
 public class WebTest extends BaseUtils {
     WebDriver driverFireFox = initializeFireFox();
@@ -156,7 +155,7 @@ Error: Precondition failed - Incomplete Input.
 */
 
     @Test
-    public void testMessageIncompleteInput11(){
+    public void testMessageIncompleteInput11() {
         String expectedResult = "Error: Precondition failed - Incomplete Input.";
 
         driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Submit new Language')]")).click();
@@ -170,8 +169,10 @@ Error: Precondition failed - Incomplete Input.
     /*TC_11_12 Precondition: Если на странице по ссылке http://www.99-bottles-of-beer.net/submitnewlanguage.html ,
      пользователь нажмет кнопку Submit Language,  не заполнив информацию в обязательных полях, будет показана ошибка с текстом
 Error: Precondition failed - Incomplete Input.
-Подтвертите, что в тексте ошибки слова Error, Precondition, Incomplete и Input написаны с большой буквы, а слово failed  написано  с маленькой буквы.
-Так же подтвердите, что в тексте ошибки содержатся знаки :, -  и .
+Подтвертите, что в тексте ошибки слова Error, Precondition, Incomplete и Input написаны с большой буквы, а слово failed
+написано  с маленькой буквы.
+     */
+/*Так же подтвердите, что в тексте ошибки содержатся знаки :, -  и .
 
 Шаги:
 1. Открыть вебсайт на странице
@@ -180,13 +181,126 @@ Error: Precondition failed - Incomplete Input.
 4. Подтвердить requirenments
 5. Закрыть браузер*/
 
+    @Test
+    public void testMessageIncompleteInputDetails12() {
+        String expectedResult = "Error: Precondition failed - Incomplete Input.";
 
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Submit new Language')]")).click();
+        driverFireFox.findElement(By.xpath("//input[@name='submitlanguage']")).click();
+        String actualResult = driverFireFox.findElement(By.cssSelector("#main > p")).getText();
 
-
-
-
-    @AfterMethod
-    public void closeBrowser() {
-        driverFireFox.quit();
+        Assert.assertTrue(actualResult.contains("Error"));
+        Assert.assertTrue(actualResult.contains("Precondition"));
+        Assert.assertTrue(actualResult.contains("Input"));
+        Assert.assertTrue(actualResult.contains("failed"));
+        Assert.assertTrue(actualResult.contains("Incomplet"));
+        Assert.assertTrue(actualResult.contains(":"));
+        Assert.assertTrue(actualResult.contains("-"));
+        Assert.assertTrue(actualResult.contains("."));
     }
+
+/* TC_11_13 Подтвердите, что на странице по ссылке http://www.99-bottles-of-beer.net/submitnewlanguage.html
+в первом пункте списка пользователь видит текст
+IMPORTANT: Take your time! The more carefully you fill out this form (especially the language name and description),
+the easier it will be for us and the faster your language will show up on this page. We don't have the time to mess around with fixing your descriptions etc. Thanks for your understanding.
+Шаги:
+1. Открыть вебсайт на странице
+2. Считать текст
+3. Подтвердить, что текст соответствует ожидаемому
+4. Закрыть браузер*/
+
+    @Test
+    public void testConfirmImportantText13() {
+        String expectedResult = "IMPORTANT: Take your time! The more carefully you fill out this form (especially the " +
+                "language name and description), the easier it will be for us and the faster your language will show up on " +
+                "this page. We don't have the time to mess around with fixing your descriptions etc. Thanks for your understanding.";
+
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Submit new Language')]")).click();
+        driverFireFox.findElement(By.xpath("//input[@name='submitlanguage']")).click();
+
+        String actualResult = driverFireFox.findElement(By.cssSelector("#main > ul > li:nth-child(1)")).getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    /*TC_11_14 Подтвердите, что нажав на пункт меню Browse Languages, пользователь увидит таблицу со следующими названиями
+     для первого и второго столбцов:
+    Language
+    Author
+Шаги:
+1. Открыть вебсайт на базовой странице
+2. Нажать на пункт меню Browse Languages
+3. Считать названия первого и второго столбцов таблицы
+3. Подтвердить, что названия соответствует ожидаемым
+4. Закрыть браузер*/
+
+    @Test
+    public void testConfirmHeaderOfTable14(){
+        String expectedResultLanguage = "Language";
+        String expectedResultAuthor = "Author";
+
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Browse Languages')]")).click();
+
+        String actualResultLanguage = driverFireFox.findElement(By.xpath(
+                "//th[contains(text(), 'Language')]")).getText();
+        String actualResultResultAuthor = driverFireFox.findElement(By.xpath
+                ("//th[contains(text(), 'Author')]")).getText();
+
+        Assert.assertEquals(actualResultLanguage, expectedResultLanguage);
+        Assert.assertEquals(actualResultResultAuthor, expectedResultAuthor);
+    }
+
+    /*TC_11_15 Подтвердите, что на странице по базовой ссылке  пользователь НЕ увидит новые комментарии,
+    если нажмет на пункты меню Top List → New Comments
+Шаги:
+1. Открыть вебсайт на базовой странице
+2. Нажать на пункт меню Top List
+3. Нажать на пункт подменю New Comments
+4. Подтвердить, что нет комментариев
+5. Закрыть браузер
+*/
+
+    @Test
+    public void testConfirmCommentsListIsEmpty15(){
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Top Lists')]")).click();
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'New Comments')]")).click();
+        String actualResult = driverFireFox.findElement(By.xpath("//*[@id=\"main\"]/p")).getText();
+
+        Assert.assertTrue(actualResult.isEmpty());
+    }
+
+    /*TC_11_21 Подтвердите, что на странице по ссылке http://www.99-bottles-of-beer.net/submitnewlanguage.html
+    пользователь видит предупреждение IMPORTANT:,
+    написанное белыми буквами bold шрифтом на красном фоне, и что все буквы - capital
+Шаги:
+1. Открыть вебсайт на странице
+2. Считать слово IMPORTANT: из списка
+3. Подтвердить requirenments
+4. Закрыть браузер*/
+
+    @Test
+    public void testConfirmStyleOfImportant21(){
+        driverFireFox.findElement(By.xpath("//li/a[contains(text(), 'Submit new Language')]")).click();
+        driverFireFox.findElement(By.xpath("//input[@name='submitlanguage']")).click();
+        WebElement importantColor = driverFireFox.findElement(By.xpath("//li/span"));
+        WebElement importantText = driverFireFox.findElement(By.xpath("//b[contains(text(), 'IMPORTANT:')]"));
+
+        String actualStyle = importantColor.getAttribute("style");
+        String expectedStyle = "background-color: red; color: white;";
+        Assert.assertEquals(actualStyle, expectedStyle);
+
+        String actualPrint = importantText.getCssValue("font-weight");
+        Assert.assertEquals(actualPrint, "700");
+
+        Assert.assertEquals(importantText.getText(), "IMPORTANT:");
+    }
+
+   /*@AfterMethod
+    public void closeBrowser() {
+       //driverFireFox
+        driverFireFox.close();
+    }*/
 }
+
+
+

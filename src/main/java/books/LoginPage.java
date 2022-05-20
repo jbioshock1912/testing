@@ -15,18 +15,6 @@ public class LoginPage {
     private By newUserButton = By.xpath("//button[@id = 'newUser']");
     private By inputUserName = By.xpath("//input[@id = 'userName']");
     private By inputPassword = By.xpath("//input[@id = 'password']");
-    private By bookStoreMenu = By.xpath("//span[contains(text(), 'Book Store')]");
-    private By profileMenu = By.xpath("//span[contains(text(), 'Profile')]");
-
-    public MainBookStorePage bookStoreMenuClick() {
-        driver.findElement(bookStoreMenu).click();
-        return new MainBookStorePage(driver);
-    }
-
-    public ProfilePage profileMenuClick() {
-        driver.findElement(profileMenu).click();
-        return new ProfilePage(driver);
-    }
 
     public RegistrationNewUserPage newUserButtonClick() {
         driver.findElement(newUserButton).click();

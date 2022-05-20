@@ -12,8 +12,6 @@ public class ProfilePage {
 
     private By logInLink = By.xpath("//a[@href = '/login']");
     private By registerLink = By.xpath("//a[@href = '/register']");
-    private By logInMenu = By.xpath("//span[contains(text(), 'Login')]");
-    private By bookStoreMenu = By.xpath("//span[contains(text(), 'Book Store')]");
 
     public LoginPage logInLinkClick() {
         driver.findElement(logInLink).click();
@@ -23,15 +21,5 @@ public class ProfilePage {
     public RegistrationNewUserPage registerLinkClick() {
         driver.findElement(registerLink).click();
         return new RegistrationNewUserPage(driver); // почему подчеркивает драйвер красным, если его нет в регистрационной странице?
-    }
-
-    public LoginPage loginMenuClick() {
-        driver.findElement(logInMenu).click();
-        return new LoginPage(driver);
-    }
-
-    public MainBookStorePage bookStoreMenuClick() {
-        driver.findElement(bookStoreMenu).click();
-        return new MainBookStorePage(driver);
     }
 }
