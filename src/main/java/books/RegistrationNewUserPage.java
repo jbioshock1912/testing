@@ -17,7 +17,7 @@ public class RegistrationNewUserPage {
     private By inputUserName = By.xpath("//input[@id='userName']");
     private By inputPassword = By.xpath("//input[@id='password']");
 
-    private By reCaptcha = By.xpath("//div[@class='recaptcha-checkbox-checkmark']");
+    private By reCaptcha = By.xpath("//iframe[@title = 'reCAPTCHA']");
     private By registerButton = By.xpath("//button[@id='register']");
     private By backToLogInButton = By.xpath("//button[@id='gotologin']");
 
@@ -61,7 +61,7 @@ public class RegistrationNewUserPage {
         return this;
     }
 
-    // при успешной регистрации высплывает алерт, но перехода на страницу нет
+    // при успешной регистрации высплывает алерт, но перехода на страницу нет. при
     public RegistrationNewUserPage registrationWithValidData(String firstName, String lastName, String userName, String password){
         this.typeFirstName(firstName);
         this.typeLastName(lastName);

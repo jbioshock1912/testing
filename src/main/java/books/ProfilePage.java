@@ -12,6 +12,7 @@ public class ProfilePage {
 
     private By logInLink = By.xpath("//a[@href = '/login']");
     private By registerLink = By.xpath("//a[@href = '/register']");
+    private By logOutButton = By.xpath("//button[@id='submit']");
 
     public LoginPage logInLinkClick() {
         driver.findElement(logInLink).click();

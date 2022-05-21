@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import utils.BaseUtils;
 
@@ -48,11 +49,29 @@ public class BookStoreTest extends BaseUtils {
     5. Закрыть браузер
     */
 
+    @Ignore //капчу не обойти
     @Test
-    public void textRegistrationNewUserPositive2(){
+    public void testRegistrationNewUserPositive2(){
         mainBookStorePage.logInButtonClick();
         loginPage.newUserButtonClick();
-        registrationNewUserPage.registrationWithValidData("first", "last", "myname", "Hello745*W");
+        registrationNewUserPage.registrationWithValidData("first", "Mylast", "myname", "Hello745*W");
+    }
+/*Тест3. Войти в профиль и подтвердить, что в поле user name отображается Jujukiss
+    Шаги
+    1. Нажать на Log in
+    2. Ввести user name и пароль
+    3. Войти в  профиль
+    4. Подтвердить user name
+    5. Выйти из профиля
+    5. Закрыть браузер
+    */
+    @Test
+    public void testLoInPositive(){
+        mainBookStorePage.logInButtonClick();
+        loginPage.typeUserName("Jujukiss");
+        loginPage.typePassword("Hello745*");
+        loginPage.logInButtonClick();
+        System.out.println(driverFireFox.findElement(By.xpath("//label[@id='userName-value']")).getText());
     }
 
 }
