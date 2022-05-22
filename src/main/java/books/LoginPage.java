@@ -2,6 +2,8 @@ package books;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class LoginPage {
 
@@ -11,28 +13,32 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    private By logInButton = By.xpath("//button[@id = 'login']");
-    private By newUserButton = By.xpath("//button[@id = 'newUser']");
-    private By inputUserName = By.xpath("//input[@id = 'userName']");
-    private By inputPassword = By.xpath("//input[@id = 'password']");
+    @FindBy(xpath = "//button[@id = 'login']")
+    private WebElement logInButton;
+    @FindBy(xpath = "//button[@id = 'newUser']")
+    private WebElement newUserButton;
+    @FindBy(xpath = "//input[@id = 'userName']")
+    private WebElement inputUserName;
+    @FindBy(xpath = "//input[@id = 'password']")
+    private WebElement inputPassword;
 
     public RegistrationNewUserPage newUserButtonClick() {
-        driver.findElement(newUserButton).click();
+        newUserButton.click();
         return new RegistrationNewUserPage(driver);
     }
 
     public LoginPage typeUserName(String userName) {
-        driver.findElement(inputUserName).sendKeys(userName); // возвращаем текущую страницу, заполняем юзера
+        inputUserName.sendKeys(userName); // возвращаем текущую страницу, заполняем юзера
         return this;
     }
 
     public LoginPage typePassword(String password) {
-        driver.findElement(inputPassword).sendKeys(password);
+        inputPassword.sendKeys(password);
         return this;
     }
 
     public ProfilePage logInButtonClick() {
-        driver.findElement(logInButton).click();
+        logInButton.click();
         return new ProfilePage(driver);
     }
 

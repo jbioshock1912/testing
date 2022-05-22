@@ -2,6 +2,8 @@ package books;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class MainBookStorePage {
     private WebDriver driver;
@@ -10,16 +12,18 @@ public class MainBookStorePage {
         this.driver = driver;
     }
 
-    private By logInButton = By.xpath("//button[@id = 'login']");
-    private By searchBox = By.xpath("//input[@id = 'searchBox']");
+    @FindBy(xpath = "//button[@id = 'login']")
+    private WebElement logInButton;
+    @FindBy(xpath = "//input[@id = 'searchBox']")
+    private WebElement searchBox;
 
     public LoginPage logInButtonClick() {
-        driver.findElement(logInButton).click();
+        logInButton.click();
         return new LoginPage(driver); // не очень понятно с передачей драйвера
     }
 
     public MainBookStorePage searchBoxInputText(String text){
-        driver.findElement(searchBox).sendKeys(text);
+        searchBox.sendKeys(text);
         return this;
     }
 }
