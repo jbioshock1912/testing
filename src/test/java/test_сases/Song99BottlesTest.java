@@ -4,9 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import table.MethodTable;
 import utils.BaseUtils;
 
 import java.util.ArrayList;
@@ -19,8 +17,13 @@ public class Song99BottlesTest extends BaseUtils {
     private List<WebElement> tableHeaders;
     private static final String URL_BASE = "http://www.99-bottles-of-beer.net/";
     private static final By XPATH_BROWSE_LANGUAGES_LINK = By.xpath("//li/a[@href='/abc.html']");
+    private static final By XPATH_TOP_LIST_LINK = By.xpath("//li/a[@href='/toplist.html']");
+    private static final By XPATH_TOP_RATED_ESOTERIC = By.xpath("//a[@href='./toplist_esoteric.html']");
+    private static final By XPATH_TOP_HITS = By.xpath("//a[@href='./tophits.html']");
+
     private static final By XPATH_LETTER_J = By.xpath("//a[@href='j.html']");
     private static final By XPATH_LETTER_M = By.xpath("//a[@href='m.html']");
+    private static final By XPATH_LETTER_A = By.xpath("//a[@href='a.html']");
     private static final By XPATH_MENU_NUMBERS = By.xpath("//a[@href = '0.html']");
     private static final By XPATH_DESCRIPTION_CATEGORY_J = By.xpath("//p[contains(text(), 'All languages')]");
     private static final By XPATH_TEXT_OF_SONG = By.xpath("//div[@id='main']/p");
@@ -34,8 +37,14 @@ public class Song99BottlesTest extends BaseUtils {
     private static final By XPATH_INPUT_EMAIL = By.xpath("//input[@name='email']");
     private static final By XPATH_INPUT_HOME_PAGE = By.xpath("//input[@name='homepage']");
     private static final By XPATH_INPUT_SECURITY_CODE = By.xpath("//input[@name='captcha']");
+    private static final By XPATH_INPUT_MESSAGE = By.xpath("//textarea[@name='comment']");
     private static final By XPATH_SUBMIT_BUTTON = By.xpath("//input[@name='submit']");
     private static final By XPATH_ERROR_MESSAGE = By.xpath("//div[@id='main']/p");
+    private static final By XPATH_ABAL_LANGUAGE = By.xpath("//a[@href='language-abal-712.html']");
+    private static final By XPATH_JAVA_LANGUAGE = By.xpath("//a[@href=\"language-java-3.html\"]");
+    private static final By XPATH_TABLE_ALTERNATIVE_VERSION = By.xpath("//div[@id='alternatives']/table");
+    private static final By XPATH_JAVA_STANDARD_VERSION = By.xpath("//a[@href='language-java-4.html']");
+    private static final By XPATH_ADD_TO_REDDIT = By.xpath("//a[@title='reddit']");
 
     /* Подтвердить текст песни "99 bottles of beer on the wall..."
     Шаги
@@ -199,9 +208,87 @@ public class Song99BottlesTest extends BaseUtils {
         driverFireFox.findElement(XPATH_INPUT_EMAIL).sendKeys("email_test@mail.com");
         driverFireFox.findElement(XPATH_INPUT_HOME_PAGE).sendKeys("testing");
         int randomNumber = (int) (100 + Math.random() * 900);
-        driverFireFox.findElement(XPATH_INPUT_SECURITY_CODE).sendKeys(randomNumber + "");
+        String code = Integer.toString(randomNumber);
+        driverFireFox.findElement(XPATH_INPUT_SECURITY_CODE).sendKeys(code);
+        driverFireFox.findElement(XPATH_INPUT_MESSAGE).sendKeys("testing");
         driverFireFox.findElement(XPATH_SUBMIT_BUTTON).click();
         String actualResult = driverFireFox.findElement(XPATH_ERROR_MESSAGE).getText();
-        Assert.assertEquals(actualResult, "Error: Please enter at least a message, your email address and the security code.");
+        Assert.assertEquals(actualResult, "Error: Error: Invalid security code.");
     }
+
+    /*  TC_12_07 Выберите любой язык программирования (из меню BROWSE LANGUAGES) и любую версию решения (из раздела
+      Alternative Versions, если такой раздел существует  для выбранного языка)
+     Раздел с альтернативными версиями отсутвует:
+      Шаги:
+      1 Открыть базовую страницу
+      2 Нажать на пункт меню BROWSE LANGUAGES
+      3 Выбрать подменю с буквой A
+      4 Выбрать из таблицы язык Language Abal
+      5 Подтвердить, что в данном языке отсутствует таблицы с альтернативными версиями
+
+      Раздел с альтернативными версиями присутствует:
+      1 Открыть базовую страницу
+      2 Нажать на пункт меню BROWSE LANGUAGES
+      3 Выбрать подменю с буквой J
+      4 Выбрать язык Java
+      5 Убедиться, что есть таблица с альтернативными версиями
+      6 Выбрать версию standard version, кликнуть
+      7 Выбрать Bookmarking - reddit, кликнуть
+      8 Подтвердите, что пользователь может сделать закладку на это решение на сайте Reddit
+      (нажав на иконку сайта Reddit, пользователь перейдет на Логин страницу сайта Reddit)
+
+ */
+    @Test
+    public void testConfirmNoAlternativeVersion() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_BROWSE_LANGUAGES_LINK).click();
+        driverFireFox.findElement(XPATH_LETTER_A).click();
+        driverFireFox.findElement(XPATH_ABAL_LANGUAGE).click();
+        List<WebElement> table = driverFireFox.findElements(XPATH_TABLE_ALTERNATIVE_VERSION);
+        Assert.assertEquals(table.size(), 0);
+    }
+
+    @Test
+    public void testConfirmAlternativeVersionAndReddit(){
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_BROWSE_LANGUAGES_LINK).click();
+        driverFireFox.findElement(XPATH_LETTER_J).click();
+        driverFireFox.findElement(XPATH_JAVA_LANGUAGE).click();
+
+        List<WebElement> table = driverFireFox.findElements(XPATH_TABLE_ALTERNATIVE_VERSION);
+        Assert.assertTrue(table.size() > 0);
+
+        driverFireFox.findElement(XPATH_JAVA_STANDARD_VERSION).click();
+        driverFireFox.findElement(XPATH_ADD_TO_REDDIT).click();
+        String currentURL = driverFireFox.getCurrentUrl();
+        Assert.assertTrue(currentURL.contains("www.reddit.com/login"));
+    }
+
+    /*TC_12_08 Подтвердите, что решение на языке Shakespeare входит в топ 20 всех решений, в топ 10 решений на Esoteric
+    Languages и в топ 6 решений-хитов. Но решение на языке Shakespeare не входит в список топовых решений на реальных языках программирования.
+    (Можно написать одним тестом, но так, чтобы все Asserts были в конце теста. Или можно написать отдельные тесты на каждый requirenment.)
+//tr/td[2]
+       Шаги:
+       1 Открыть базовую страницу
+       2 Выбрать меню TOP LISTS
+       3 Подтвердите, что решение на языке Shakespeare входит в топ 20 всех решений
+
+       Шаги:
+       1 Открыть базовую страницу
+       2 Выбрать меню TOP LISTS
+       3 Выбрать Top Rated Esoteric Languages
+       4 Подтвердить, что решение на языке Shakespeare входит  в топ 10 решений на Esoteric Languages
+
+       Шаги:
+       1 Открыть базовую страницу
+       2 Выбрать меню TOP LISTS
+       3 Выбрать меню TOP HITS
+       4 Подтвердить, что решение на языке Shakespeare входит в топ 6 решений-хитов
+
+
+
+
+*/
+
+
 }
