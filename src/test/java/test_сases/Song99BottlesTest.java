@@ -351,7 +351,7 @@ public class Song99BottlesTest extends BaseUtils {
      2 Нажать на пункт меню BROWSE LANGUAGES
      3 Выбрать подменю с буквой J
      4 Выбрать язык Java
-     5 Убедиться, что существует 5 версий решений на данном языке
+     5 Убедиться, что существует 6 версий решений на данном языке
     */
     @Test
     public void testConfirmNumberOfVersionJava() {
@@ -360,17 +360,17 @@ public class Song99BottlesTest extends BaseUtils {
         driverFireFox.findElement(XPATH_LETTER_J).click();
         driverFireFox.findElement(XPATH_JAVA_LANGUAGE).click();
         List<WebElement> table = driverFireFox.findElements(By.xpath("//table[@id='category']//td[1]"));
-        int actualResult = table.size();
-        Assert.assertEquals(actualResult, 5);
+        int actualResult = table.size() + 1;
+        Assert.assertEquals(actualResult, 6);
     }
 
-    /* TC_12_10 Подтвердите, что самое большое количество комментариев для решений на языке Java имеет версия “bytecode-version with loader”
+    /* TC_12_10 Подтвердите, что самое большое количество комментариев для решений на языке Java имеет версия “standard version”
     Шаги:
       1 Открыть базовую страницу
       2 Нажать на пункт меню BROWSE LANGUAGES
       3 Выбрать подменю с буквой J
       4 Выбрать язык Java
-      5 Найти версию с самым большим количеством комментариев и убедиться, что это standard version
+      5 Найти версию с самым большим количеством комментариев и убедиться, что (object-oriented version)
     */
     @Test
     public void testConfirmMaxNumberOfCommentsJava() {
@@ -382,6 +382,13 @@ public class Song99BottlesTest extends BaseUtils {
         List<WebElement> valueCellCommentsFromTable = driverFireFox.findElements(By.xpath("//table[@id='category']//td[4]"));
 
         Map<String, Integer> versionWithComments = new HashMap<>();
+        String oopJava = driverFireFox.findElement(By.xpath("//table/preceding-sibling::p")).getText();
+        int numberOfCommentsOOPJava = Integer.parseInt(driverFireFox
+                .findElement(By
+                        .xpath("//strong[contains(text(), 'Comments:')]/following::td[1]"))
+                .getText());
+        versionWithComments.put(oopJava, numberOfCommentsOOPJava);
+
         for (int i = 0; i < 5; i++) {
             String keyVersion = valueCellVersionFromTable.get(i).getText();
             int valueNumberComments = Integer.parseInt(valueCellCommentsFromTable.get(i).getText());
@@ -390,6 +397,7 @@ public class Song99BottlesTest extends BaseUtils {
 
         int maxComments = 0;
         String versionWithMaxComments = "";
+
         for (Map.Entry<String, Integer> entry : versionWithComments.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
             if (maxComments < entry.getValue()) {
@@ -397,14 +405,11 @@ public class Song99BottlesTest extends BaseUtils {
                 versionWithMaxComments = entry.getKey();
 
             }
-
         }
         System.out.println(maxComments);
         System.out.println(versionWithMaxComments);
-        Assert.assertEquals(versionWithMaxComments, "standard version");
+        Assert.assertEquals(versionWithMaxComments, "(object-oriented version)");
 
     }
-
-
 }
 
