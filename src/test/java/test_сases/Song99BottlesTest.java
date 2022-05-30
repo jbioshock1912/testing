@@ -7,12 +7,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.BaseUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class Song99BottlesTest extends BaseUtils {
-    WebDriver driverFireFox = initializeFireFox();
+    static WebDriver driverFireFox = initializeFireFox();
     private List<WebElement> textOfSong;
     private List<WebElement> tableHeaders;
     private static final String URL_BASE = "http://www.99-bottles-of-beer.net/";
@@ -20,7 +19,7 @@ public class Song99BottlesTest extends BaseUtils {
     private static final By XPATH_TOP_LIST_LINK = By.xpath("//li/a[@href='/toplist.html']");
     private static final By XPATH_TOP_RATED_ESOTERIC = By.xpath("//a[@href='./toplist_esoteric.html']");
     private static final By XPATH_TOP_HITS = By.xpath("//a[@href='./tophits.html']");
-
+    private static final By XPATH_TOP_RATED_REAL = By.xpath("//a[@href='./toplist_real.html']");
     private static final By XPATH_LETTER_J = By.xpath("//a[@href='j.html']");
     private static final By XPATH_LETTER_M = By.xpath("//a[@href='m.html']");
     private static final By XPATH_LETTER_A = By.xpath("//a[@href='a.html']");
@@ -45,6 +44,7 @@ public class Song99BottlesTest extends BaseUtils {
     private static final By XPATH_TABLE_ALTERNATIVE_VERSION = By.xpath("//div[@id='alternatives']/table");
     private static final By XPATH_JAVA_STANDARD_VERSION = By.xpath("//a[@href='language-java-4.html']");
     private static final By XPATH_ADD_TO_REDDIT = By.xpath("//a[@title='reddit']");
+    private static final By XPATH_TABLE_CELL_OF_LANGUAGE = By.xpath("//tr/td[2]");
 
     /* Подтвердить текст песни "99 bottles of beer on the wall..."
     Шаги
@@ -249,7 +249,7 @@ public class Song99BottlesTest extends BaseUtils {
     }
 
     @Test
-    public void testConfirmAlternativeVersionAndReddit(){
+    public void testConfirmAlternativeVersionAndReddit() {
         driverFireFox.get(URL_BASE);
         driverFireFox.findElement(XPATH_BROWSE_LANGUAGES_LINK).click();
         driverFireFox.findElement(XPATH_LETTER_J).click();
@@ -285,10 +285,126 @@ public class Song99BottlesTest extends BaseUtils {
        3 Выбрать меню TOP HITS
        4 Подтвердить, что решение на языке Shakespeare входит в топ 6 решений-хитов
 
-
-
-
+         Шаги:
+       1 Открыть базовую страницу
+       2 Выбрать меню TOP LISTS
+       3 Выбрать Top Rated Real Languages
+       4 Подтвердить, что решение на языке Shakespeare
+       не входит в список топовых решений на реальных языках программирования
 */
+
+    @Test
+    public static void testConfirmIncludedInCommonTopShakespeare() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
+        int actualIndex = getIndexFromTableTopLists("Shakespeare");
+        System.out.println(actualIndex);
+        Assert.assertTrue(actualIndex < 21);
+    }
+
+    @Test
+    public static void testConfirmIncludedInEsotericTopShakespeare() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
+        driver.findElement(XPATH_TOP_RATED_ESOTERIC).click();
+        int actualIndex = getIndexFromTableTopLists("Shakespeare");
+        System.out.println(actualIndex);
+        Assert.assertTrue(actualIndex < 11);
+    }
+
+    @Test
+    public static void testConfirmIncludedInHitsTopShakespeare() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
+        driverFireFox.findElement(XPATH_TOP_HITS).click();
+        int actualIndex = getIndexFromTableTopLists("Shakespeare");
+        System.out.println(actualIndex);
+        Assert.assertTrue(actualIndex < 7);
+    }
+
+    @Test
+    public static void testConfirmNotIncludedInRealTopShakespeare() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
+        driverFireFox.findElement(XPATH_TOP_RATED_REAL).click();
+        int actualIndex = getIndexFromTableTopLists("Shakespeare");
+        System.out.println(actualIndex);
+        Assert.assertEquals(actualIndex, Integer.MAX_VALUE);
+    }
+
+
+    private static int getIndexFromTableTopLists(String language) {
+        List<WebElement> table = driverFireFox.findElements(XPATH_TABLE_CELL_OF_LANGUAGE);
+        int index = Integer.MAX_VALUE;
+        for (WebElement languageCell : table) {
+            if (languageCell.getText().contains(language)) {
+                index = table.indexOf(languageCell) + 1;
+                break;
+            }
+        }
+        return index;
+    }
+
+    /*TC_12_09 Подтвердите, что существует 6 версий решений на языке программирования Java.
+     Шаги:
+     1 Открыть базовую страницу
+     2 Нажать на пункт меню BROWSE LANGUAGES
+     3 Выбрать подменю с буквой J
+     4 Выбрать язык Java
+     5 Убедиться, что существует 5 версий решений на данном языке
+    */
+    @Test
+    public void testConfirmNumberOfVersionJava() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_BROWSE_LANGUAGES_LINK).click();
+        driverFireFox.findElement(XPATH_LETTER_J).click();
+        driverFireFox.findElement(XPATH_JAVA_LANGUAGE).click();
+        List<WebElement> table = driverFireFox.findElements(By.xpath("//table[@id='category']//td[1]"));
+        int actualResult = table.size();
+        Assert.assertEquals(actualResult, 5);
+    }
+
+    /* TC_12_10 Подтвердите, что самое большое количество комментариев для решений на языке Java имеет версия “bytecode-version with loader”
+    Шаги:
+      1 Открыть базовую страницу
+      2 Нажать на пункт меню BROWSE LANGUAGES
+      3 Выбрать подменю с буквой J
+      4 Выбрать язык Java
+      5 Найти версию с самым большим количеством комментариев и убедиться, что это standard version
+    */
+    @Test
+    public void testConfirmMaxNumberOfCommentsJava() {
+        driverFireFox.get(URL_BASE);
+        driverFireFox.findElement(XPATH_BROWSE_LANGUAGES_LINK).click();
+        driverFireFox.findElement(XPATH_LETTER_J).click();
+        driverFireFox.findElement(XPATH_JAVA_LANGUAGE).click();
+        List<WebElement> valueCellVersionFromTable = driverFireFox.findElements(By.xpath("//table[@id='category']//td[1]"));
+        List<WebElement> valueCellCommentsFromTable = driverFireFox.findElements(By.xpath("//table[@id='category']//td[4]"));
+
+        Map<String, Integer> versionWithComments = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
+            String keyVersion = valueCellVersionFromTable.get(i).getText();
+            int valueNumberComments = Integer.parseInt(valueCellCommentsFromTable.get(i).getText());
+            versionWithComments.put(keyVersion, valueNumberComments);
+        }
+
+        int maxComments = 0;
+        String versionWithMaxComments = "";
+        for (Map.Entry<String, Integer> entry : versionWithComments.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+            if (maxComments < entry.getValue()) {
+                maxComments = entry.getValue();
+                versionWithMaxComments = entry.getKey();
+
+            }
+
+        }
+        System.out.println(maxComments);
+        System.out.println(versionWithMaxComments);
+        Assert.assertEquals(versionWithMaxComments, "standard version");
+
+    }
 
 
 }
+
