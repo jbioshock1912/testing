@@ -294,7 +294,7 @@ public class Song99BottlesTest extends BaseUtils {
 */
 
     @Test
-    public static void testConfirmIncludedInCommonTopShakespeare() {
+    public void testConfirmIncludedInCommonTopShakespeare() {
         driverFireFox.get(URL_BASE);
         driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
         int actualIndex = getIndexFromTableTopLists("Shakespeare");
@@ -303,7 +303,7 @@ public class Song99BottlesTest extends BaseUtils {
     }
 
     @Test
-    public static void testConfirmIncludedInEsotericTopShakespeare() {
+    public void testConfirmIncludedInEsotericTopShakespeare() {
         driverFireFox.get(URL_BASE);
         driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
         driver.findElement(XPATH_TOP_RATED_ESOTERIC).click();
@@ -313,7 +313,7 @@ public class Song99BottlesTest extends BaseUtils {
     }
 
     @Test
-    public static void testConfirmIncludedInHitsTopShakespeare() {
+    public void testConfirmIncludedInHitsTopShakespeare() {
         driverFireFox.get(URL_BASE);
         driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
         driverFireFox.findElement(XPATH_TOP_HITS).click();
@@ -323,7 +323,7 @@ public class Song99BottlesTest extends BaseUtils {
     }
 
     @Test
-    public static void testConfirmNotIncludedInRealTopShakespeare() {
+    public void testConfirmNotIncludedInRealTopShakespeare() {
         driverFireFox.get(URL_BASE);
         driverFireFox.findElement(XPATH_TOP_LIST_LINK).click();
         driverFireFox.findElement(XPATH_TOP_RATED_REAL).click();
@@ -331,7 +331,6 @@ public class Song99BottlesTest extends BaseUtils {
         System.out.println(actualIndex);
         Assert.assertEquals(actualIndex, Integer.MAX_VALUE);
     }
-
 
     private static int getIndexFromTableTopLists(String language) {
         List<WebElement> table = driverFireFox.findElements(XPATH_TABLE_CELL_OF_LANGUAGE);
@@ -409,7 +408,6 @@ public class Song99BottlesTest extends BaseUtils {
         System.out.println(maxComments);
         System.out.println(versionWithMaxComments);
         Assert.assertEquals(versionWithMaxComments, "(object-oriented version)");
-
     }
 }
 
