@@ -4,14 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.BaseUtils;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
-public class Song99BottlesTest extends BaseUtils {
-    static WebDriver driverFireFox = initializeFireFox();
+public  class Song99BottlesTest extends BaseUtils {
+    WebDriver driverFireFox;
     private List<WebElement> textOfSong;
     private List<WebElement> tableHeaders;
     private static final String URL_BASE = "http://www.99-bottles-of-beer.net/";
@@ -46,6 +47,11 @@ public class Song99BottlesTest extends BaseUtils {
     private static final By XPATH_ADD_TO_REDDIT = By.xpath("//a[@title='reddit']");
     private static final By XPATH_TABLE_CELL_OF_LANGUAGE = By.xpath("//tr/td[2]");
 
+    @BeforeMethod
+    public void createBrowser() {
+       driverFireFox = initializeFireFox();
+    }
+
     /* Подтвердить текст песни "99 bottles of beer on the wall..."
     Шаги
     1 Перейти сразу по адресу http://www.99-bottles-of-beer.net/lyrics.html
@@ -53,15 +59,15 @@ public class Song99BottlesTest extends BaseUtils {
     3 Подтвердить текстп песни
     */
     public static String constructorForSong() {
-        String song = "";
+        StringBuilder song = new StringBuilder();
         String startText = "99 bottles of beer on the wall, 99 bottles of beer.\n";
         String finalText = "Take one down and pass it around, 1 bottle of beer on the wall.1 bottle of beer on the wall, 1 bottle of beer.\n" +
                 "Take one down and pass it around, no more bottles of beer on the wall.No more bottles of beer on the wall, no more bottles of beer.\n" +
                 "Go to the store and buy some more, 99 bottles of beer on the wall.";
 
         for (int i = 98; i > 1; i--) {
-            song = song + String.format("Take one down and pass it around, " + i + " bottles of beer on the wall." +
-                    i + " bottles of beer on the wall, " + i + " bottles of beer.\n");
+            song.append(String.format("Take one down and pass it around, " + i + " bottles of beer on the wall." +
+                    i + " bottles of beer on the wall, " + i + " bottles of beer.\n"));
         }
         return startText + song + finalText;
     }
@@ -72,11 +78,11 @@ public class Song99BottlesTest extends BaseUtils {
         driverFireFox.get("http://www.99-bottles-of-beer.net/lyrics.html");
         textOfSong = driverFireFox.findElements(XPATH_TEXT_OF_SONG);
 
-        String actualResult = "";
+        StringBuilder actualResult = new StringBuilder();
         for (WebElement value : textOfSong) {
-            actualResult = actualResult + value.getText();
+            actualResult.append(value.getText());
         }
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResult.toString(), expectedResult);
     }
 
     /*TC_12_01 Подтвердите, что в меню BROWSE LANGUAGES, подменю  J, пользователь может найти описание страницы,
@@ -332,7 +338,7 @@ public class Song99BottlesTest extends BaseUtils {
         Assert.assertEquals(actualIndex, Integer.MAX_VALUE);
     }
 
-    private static int getIndexFromTableTopLists(String language) {
+    private int getIndexFromTableTopLists(String language) {
         List<WebElement> table = driverFireFox.findElements(XPATH_TABLE_CELL_OF_LANGUAGE);
         int index = Integer.MAX_VALUE;
         for (WebElement languageCell : table) {
@@ -408,6 +414,11 @@ public class Song99BottlesTest extends BaseUtils {
         System.out.println(maxComments);
         System.out.println(versionWithMaxComments);
         Assert.assertEquals(versionWithMaxComments, "(object-oriented version)");
+    }
+
+    @AfterMethod
+    public void closeBrowser() {
+        driverFireFox.quit();
     }
 }
 
